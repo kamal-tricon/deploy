@@ -1,0 +1,36 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+  }
+  
+  td, th {
+    border: 1px solid #a89d9d;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #c2c192;
+  }
+
+  .resume-filling-btn{
+      
+  }
+  .file-upload{
+    background-color: #c4ffc6;
+    border-radius: 2%;
+    height: 110px;
+  }
+  .manual-enter{
+    background-color: #c4e3ff;
+    border-radius: 2%;
+    height: 110px;
+  }
+  .user-list{
+    margin-top: 5%;
+    margin-left: 10%;
+  }
+  .delete-btn{
+    margin-left: 8px;
+  }

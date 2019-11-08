@@ -1,0 +1,594 @@
+<div class="container">
+  <br>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#PersonalInformation">Personal Information</a></li>
+    <li><a data-toggle="tab" href="#IncomeSource">Income Source</a></li>
+    <li><a data-toggle="tab" href="#Deductions">Deductions</a></li>
+    <li><a data-toggle="tab" href="#taxPaid">Taxes Paid</a></li>
+
+  </ul>
+  
+  <div class="tab-content">
+    <div id="PersonalInformation" class="tab-pane active">
+      <h1>Personal Information</h1>
+      <form>
+        <div class="form-group">
+          <label for="firstName">First Name*</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="firstName" name="firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="lastname">Last Name*</label>
+          <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName" id="alterEgo">
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender*</label>
+
+          <select class="form-control" id="gender" [(ngModel)]="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="DOB">Date Of Birth*</label>
+          <input type="text" class="form-control" id="DOB" [(ngModel)]="DOB" name="DOB" required placeholder="Specify date in format like 25/3/1987">
+        </div>
+
+        <div class="form-group">
+          <label for="PAN">PAN Number*</label>
+          <input type="text" class="form-control" id="PAN" [(ngModel)]="PAN" name="PAN" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fatherName">Father's Name*</label>
+          <input type="text" class="form-control" [(ngModel)]="fatherName" name="fatherName" id="fatherName">
+        </div>
+
+        <button type="submit" (click) = "goBack()" class="btn btn-success">Back</button>
+
+        <button type="submit" (click) = "savePI()" class="btn btn-success margin-left-15px">Save and Continue</button>
+        <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+      </form>
+
+    </div>
+
+
+
+
+
+
+
+   
+
+
+
+
+
+    <div id="IncomeSource" class="tab-pane">
+      <div class="container">
+        <br><br>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#salary">Salary</a></li>
+            <li><a data-toggle="tab" href="#otherIncome">Other Income</a></li>
+            <li><a data-toggle="tab" href="#houseProperty">House Property</a></li>
+            <li><a data-toggle="tab" href="#capitalGain">Capital Gain</a></li>
+            <li><a data-toggle="tab" href="#businessProfession">Business and Profession</a></li>
+          </ul>
+          <div class="tab-content">
+            <div id="salary" class="tab-pane active">
+              <h1>Salary</h1>
+              <form>
+                 <h3>Employer Details</h3>
+
+                  <div class="form-group">
+                    <label for="employerName">Name of Employer</label>
+                    <input type="text" class="form-control" id="employerName" [(ngModel)]="employerName" name="employerName" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="employerType">Employer Type/Category</label>
+                    <select name="employerType" [(ngModel)]="employerType">
+                      <option value="Private">Private</option>
+                      <option value="Government">Government</option>
+                      <option value="Public Sector Unit">Public Sector Unit</option>
+                      <option value="Pensioner">Pensioner</option>
+                    </select>
+                  </div>
+                  <h3>Salary Information</h3>
+                  <p>Please provide this information as per your Form-16 Part-B. 
+                      You can match each item with the field number in your Form-16.</p>
+
+                <div class="grossSalary">
+                  <label>1. Gross Salary <span class="totalAmount">{{totalAmount}}</span></label>
+                      
+                  <div class="form-group">
+                      <button (click)="onExpandBtnClick()">+</button>
+                    <label for="oneA"> 1(a). Salary as per section 17(1)</label><span *ngIf="plusIconClick" class="totalAmount">{{totalBasic}}</span>
+                    <input type="number" class="salary-input" (focusout)="calculateSum()" [(ngModel)]="salarySection17_1" name="salarySection17_1" *ngIf="!plusIconClick" id="oneA">
+                    
+                    <div class="salary-details" *ngIf="plusIconClick">
+                      <div class="salary-component">
+                        <label class="basic-salary" for="basic-salary">Basic Salary</label>
+                        <input type="number" (focusout)="calculateSum()" class="salary-input" [(ngModel)]="basicSalary" name="basicSalary">
+                      </div>
+                      <div class="salary-component">
+                        <label class="houseRentAll" for="houseRentAll">House Rent Allowance</label>
+                        <input type="number"(focusout)="calculateSum()" class="salary-input" [(ngModel)]="houseRentAll" name="houseREntAll">
+                      </div>
+                      <div class="salary-component">
+                        <label class="basic-salary" for="leaveTravelAll">Leave Travel Allowance</label>
+                        <input type="number"(focusout)="calculateSum()" class="salary-input" [(ngModel)]="leaveTravelAll" name="leavetravelAll">
+                     </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="oneB"> 1(b). Value of perquisites under section 17(2)</label>
+                      <input type="number" class="salary-input" (focusout)="calculateSum()" [(ngModel)]="salarySection17_2" name="salarySection17_1" id="oneC">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="oneC"> 1(c). Profits in lieu of salary under section 17(3)</label>
+                      <input type="number" class="salary-input" (focusout)="calculateSum()" [(ngModel)]="salarySection17_3" name="salarySection17_1" id="oneC">
+                  </div>
+                </div>
+                
+                <div class="exempt-allowance">
+                  <button type="button" (click)="onExpandBtnClickExempt()">+</button>
+                  <label>2. Exempt allowances under section 10 <span *ngIf="plusIconClickExempt" class="totalAmount">{{totalExempt}}</span></label>
+                  <input type="number" class="salary-input" (focusout)="calculateExempt()" [(ngModel)]="totalExemptInput" name="salarySection17_1" *ngIf="!plusIconClickExempt" id="oneA">
+                  <div class="exemtion-div" *ngIf="plusIconClickExempt">
+                    <div class="form-group">
+                      <label for="hraExemption"> HRA Exemption</label>
+                      <input type="number"(focusout)="calculateExempt()" class="salary-input" [(ngModel)]="hraExemption" name="hraExemption" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hraExemption"> LTA Exemption</label>
+                        <input type="number" (focusout)="calculateExempt()" class="salary-input" [(ngModel)]="ltaExemption" name="ltaExemption" required>
+                    </div>
+                  </div>
+               </div>
+
+               <div class="balance">
+                 <label>3. Balance(1 - 2)</label><span *ngIf="totalBalance > 0">&nbsp;&nbsp;{{totalBalance}}</span><br>
+               </div>
+               <div class="deductions">
+                  <label for="alterEgo"> 4. Deductions under section 16</label><span >&nbsp;&nbsp;{{totalDeductions}}</span><br>
+                  <div class="form-group">
+                      <label>Standard deduction under section 16(ia)</label>
+                      <input type="number" (focusout)="totalDeduction()" class="salary-input" [(ngModel)]="deductionSection16_1" name="deductionSection16_1">
+                  </div>
+                  <div class="form-group">
+                      <label>Professional tax under section 16(iii)</label>
+                      <input type="number" (focusout)="totalDeduction()" class="salary-input" [(ngModel)]="deductionSection16_2" name="deductionSection16_2">
+                  </div>
+               </div>
+                
+               <div class="chargeable-income">
+                  <label>5. Income Chargeable under the head 'Salaries'</label><span *ngIf="totalBalance - totalDeductions > 0">&nbsp;&nbsp;{{totalBalance - totalDeductions}}</span><br>
+                </div>
+                
+                <button type="submit" (click) = "goBack()" class="btn btn-success margin-left-15px">Back</button>
+
+                <button type="submit" (click) = "saveSalaryIncomeInfo()" class="btn btn-success margin-left-15px">Save and Continue</button>
+                <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+
+              </form>
+           </div>
+          
+           <div id="otherIncome" class="tab-pane">
+              <h2>Income other than Salary</h2>
+              <form>
+                <div class="form-group bank-income">
+                  <label for="saving-inerest">Interest income from saving bank</label>
+                  <input type="number" name="savingInterest" [(ngModel)]="savingInterest">
+                </div>
+
+                <div class="form-group bank-income">
+                  <label for="saving-inerest">Interest Income from Fixed Deposits</label>
+                  <input type="number" name="fdInterest" [(ngModel)]="fdInterest">
+                </div>
+                <div *ngIf="moreOtherIncomeClick">
+                  <div class="form-group bank-income">
+                      <label for="saving-inerest">Interest on Income Tax Refund</label>
+                      <input type="number" name="itrInterest" [(ngModel)]="itrInterest">
+                  </div>
+                  <div class="form-group bank-income">
+                      <label for="saving-inerest">Any Other Interest Income</label>
+                      <input type="number" name="otherInterest" [(ngModel)]="otherInterest">
+                  </div>
+                </div>
+
+                <div class="otherIncome">
+                  <div class="form-group bank-income">
+                      <label for="saving-inerest">Any Other Income</label>
+                      <p>Report any other income which is not part of Income from Salary, 
+                          House Property, Capital Gain or Business and Profession head.
+                          Gifts can be declared as Income here.</p>
+                      <input type="number" name="otherInterest" [(ngModel)]="otherIncome">
+                  </div>
+                </div>
+
+                <div class="exempt-income">
+                  <h4>Exempt Income</h4>
+                  <div class="form-group bank-income">
+                      <label for="saving-inerest">Dividend earned</label>
+                      <p>Dividend from shares. Income earned on investments in Mutual Funds, ULIPs, UTI.</p>
+                      <input type="number" name="dividendEarned" [(ngModel)]="dividendEarned">
+                  </div>
+                  <div class="form-group bank-income">
+                      <label for="saving-inerest">Exempt Interest Income</label>
+                      <p>Example: Interest earned on PPF</p>
+                      <input type="number" name="exemptInterest" [(ngModel)]="exemptInterest">
+                  </div>
+                  <div class="form-group bank-income">
+                      <label for="saving-inerest">Other miscellaneous exempt Income</label>
+                      <p>Specify any other exempt income</p>
+                      <input type="number" name="otherMiscExempt" [(ngModel)]="otherMiscExempt">
+                  </div>
+                </div>
+              </form>
+              <button type="submit" (click) = "saveOtherIncome()" class="btn btn-success margin-left-15px">Save and Continue</button>
+              <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+           </div>
+
+           <div id="houseProperty" class="tab-pane">
+              <h4>Interest paid on housing loan for Self occupied property</h4>
+              <p>If you have a housing loan against a house you live in (Self Occupied property) then you can claim a tax deduction of upto Rs. 2,00,000</p>
+              <!-- <form>
+                <div class="form-group">
+                  <label for="loanInterestPaid">Interest paid on loan for self occupied property </label>
+                  <input type="number" [(ngModel)]="loanInterestPaid" [ngModelOptions]="{standalone: true}" name="abdc">
+                </div>
+                <div class="form-group">
+                    <label for="loanInterestPaid">Interest paid on loan for self occupied property </label>
+                    <input type="number" [(ngModel)]="loanInterestPaid" [ngModelOptions]="{standalone: true}" name="abdc">
+                  </div>
+                    
+              </form> -->
+              <form>
+                <div class="form-group">
+                  <label for="loanInterestPaid">Interest paid on loan for self occupied property </label>
+                  <input type="number" [(ngModel)]="loanInterestPaid" [ngModelOptions]="{standalone: true}" name="abdc">
+                </div>
+                <h4>Interest paid during the pre-construction period of self occupied property</h4>
+                <div class="form-group">
+                  <label for="finYear">The financial year previous to completion of construction </label>
+                  <select [(ngModel)]="finYear" name = "Kuchbh">
+                    <option value="2016-17">2016-17</option>
+                    <option value="2017-18">2017-18</option>
+                    <option value="2018-19">2018-19</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                 <label for="interestPaidConstrPeriod">Total interest amount paid during the pre-construction period </label>
+                 <input type="number" [(ngModel)]="interestPaidConstrPeriod" name="name">
+                </div>
+
+                <h4>Your House Address</h4>
+                <div class="form-group">
+                  <label for="flatNumber">Flat/Door/Block Number *</label>
+                  <input type="text" [(ngModel)]="flatNumber" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="pincode">Pinconde *</label>
+                  <input type="text" [(ngModel)]="pincode" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="areaLocality">Area/Locality *</label>
+                  <input type="text" [(ngModel)]="areaLocality" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="townCity">Town/City *</label>
+                  <input type="text" [(ngModel)]="townCity" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="state">State *</label>
+                  <input type="text" [(ngModel)]="state" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="country">Country *</label>
+                  <input type="text" [(ngModel)]="country" name="name">
+                </div>
+
+              </form>
+
+              <button type="submit" (click) = "saveHouseDetails()" class="btn btn-success margin-left-15px">Save and Continue</button>      
+              <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+           </div>
+          </div>
+      </div>
+    </div>
+
+
+
+    <div id="Deductions" class="tab-pane">
+      <div class="container">
+        <br><br>
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#section80Deductions">A. Section 80 Deductions</a></li>
+          <li><a data-toggle="tab" href="#moreDeductions">B. MoreDeductions</a></li>
+          <li><a data-toggle="tab" href="#otherDeductions">C. OtherDeductions</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="section80Deductions" class="tab-pane active">
+
+            <h3> Deductions under section 80</h3><br>
+
+            <form>
+              <div class="form-group">
+                <h4>Investments under Section 80C</h4>
+                <p>You can claim a deduction of upto Rs. 1,50,000 under this section. </p>
+                <label for="firstName">Investment for Section 80C </label>
+                <input type="number" class="form-control"  [(ngModel)] = "section80CDeductions" name="section80CDeductions" required>
+                <br>
+                <p>Section 80C includes contributions to LIC / Insurance premium, PPF, EPF, NSC, ELSS Mutual Funds,
+                  Children school fees, <br>
+                  Payment of Principal in Housing Loan & other eligible items.</p>
+              </div>
+              <hr />
+              <div class="form-group">
+                <h4>Section 80TTA: Deduction for Interest earned on Savings Bank Account</h4>
+                <label for="firstName">Interest earned on Savings Bank Account </label>
+                <input type="number" class="form-control" [(ngModel)] = "section80TTADeductions"  name="section80TTADeductions" required>
+                <br>
+                <p>You do not need to enter a value for the 80TTA deduction here.
+                  ClearTax automatically picks it up from your declared interest income from Saving Bank account and
+                  Post office deposits..
+                </p>
+              </div>
+              <hr />
+              <div class="form-group">
+                <label for="firstName">Section 80G : Donations to charitable organizations</label>
+                <input type="number" class="form-control" [(ngModel)] = "section80GDeductions"  name="section80GDeductions" required><br>
+                <p>The government requires itemized details of donations for Section 80G.</p>
+              </div>
+
+              <button type="submit" (click) = "goBack()" class="btn btn-success margin-left-15px">Back</button>
+
+              <button type="submit" (click) = "saveDeductions()" class="btn btn-success margin-left-15px">Save and Continue</button>
+              <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+              <!-- <button type="submit" (click) = "submit()" class="btn btn-success margin-left-15px">Submit</button> -->
+
+
+            </form>
+          </div>
+
+
+          <div id="moreDeductions" class="tab-pane">
+            <h3>Section 80D: Deductions for Medical Insurance</h3>
+            <form>
+              <div class="form-group">
+
+                <p>Deductions for Medical Insurance or Preventive Health Check-Up fees or Medical Expenditure incurred
+                  by you. </p>
+                <label for="firstName">Medical Insurance Premium </label>
+                <input type="text" class="form-control" id="name" required>
+
+              </div>
+              <hr />
+              <div class="form-group">
+                <h4>Section 80TTA: Deduction for Interest earned on Savings Bank Account</h4>
+                <label for="firstName">Preventive Health Check-Up Fees</label>
+                <input type="text" class="form-control" id="name" required>
+                <br>
+                <p>You do not need to enter a value for the 80TTA deduction here.
+                  ClearTax automatically picks it up from your declared interest income from Saving Bank account and
+                  Post office deposits..
+                </p>
+              </div>
+              <hr />
+              <div class="form-group">
+                <label for="firstName">Section 80G : Donations to charitable organizations</label>
+                <input type="text" class="form-control" id="name" required><br>
+                <p>The government requires itemized details of donations for Section 80G.</p>
+              </div>
+
+              <button type="submit" class="btn btn-success margin-left-15px">Save and Continue</button>
+              <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+
+            </form>
+          </div>
+
+
+          <div id="otherDeductions" class="tab-pane">
+            <h3>More deductions Under Section 80DD and Section 80U (For Disabilities)</h3>
+            <form>
+              <div class="form-group">
+                <label for="firstName">First Name*</label>
+                <input type="text" class="form-control" id="name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="lastname">Last Name*</label>
+                <input type="text" class="form-control" id="alterEgo">
+              </div>
+
+              <div class="form-group">
+                <label for="gender">Gender*</label>
+
+                <select class="form-control" id="gender" required>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="DOB">Date Of Birth*</label>
+                <input type="text" class="form-control" id="DOB" required
+                  placeholder="Specify date in format like 25/3/1987">
+              </div>
+
+              <div class="form-group">
+                <label for="PAN">PAN Number*</label>
+                <input type="text" class="form-control" id="PAN" required>
+              </div>
+
+              <div class="form-group">
+                <label for="fatherName">Father's Name*</label>
+                <input type="text" class="form-control" id="fatherName">
+              </div>
+
+              <button type="submit" class="btn btn-success margin-left-15px">Save and Continue</button>
+              <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  
+
+
+      <!-- end deductions -->
+
+         <!-- tax paid -->
+
+
+         <div id="taxPaid" class="tab-pane">
+          <div class="container">
+            <br><br>
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#TDS">A. TDS</a></li>
+              <li><a data-toggle="tab" href="#selftaxPayments">B. Self Tax Payments</a></li>
+              
+            </ul>
+    
+            <div class="tab-content">
+              <div id="TDS" class="tab-pane active">
+    
+                <h3> Taxes Deducted/Collected at Source </h3><br>
+    
+                <form>
+                  <div class="form-group">
+                    <h4>Specify TDS/TCS which was deducted between the period of April 1, 2018 to March 31, 2019.</h4>
+                    <p>Please Note : Tax deductions from your Salary by your employer should be entered here. </p>
+                    <label for="deductorTan">Investment for Section 80C </label>
+                    <input type="number" class="form-control"  [(ngModel)] = "deductorTan" name="deductorTan" required>
+                    <br>
+                    <p>Section 80C includes contributions to LIC / Insurance premium, PPF, EPF, NSC, ELSS Mutual Funds,
+                      Children school fees, <br>
+                      Payment of Principal in Housing Loan & other eligible items.</p>
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <h4>Section 80TTA: Deduction for Interest earned on Savings Bank Account</h4>
+                    <label for="deductorName">Interest earned on Savings Bank Account </label>
+                    <input type="text" class="form-control" [(ngModel)] = "deductorName"  name="deductorName" required>
+                    <br>
+                   
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <h4>Specify TDS/TCS which was deducted between the period of April 1, 2018 to March 31, 2019.</h4>
+                    <p>Please Note : Tax deductions from your Salary by your employer should be entered here. </p>
+                    <label for="tdsCertificateNumber">Investment for Section 80C </label>
+                    <input type="number" class="form-control"  [(ngModel)] = "tdsCertificateNumber" name="tdsCertificateNumber" required>
+                    <br>
+                   
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <h4>Specify TDS/TCS which was deducted between the period of April 1, 2018 to March 31, 2019.</h4>
+                    <p>Please Note : Tax deductions from your Salary by your employer should be entered here. </p>
+                    <label for="totalTaxDeducted">Investment for Section 80C </label>
+                    <input type="number" class="form-control"  [(ngModel)] = "totalTaxDeducted" name="totalTaxDeducted" required>
+                    <br>
+                   
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <h4>Specify TDS/TCS which was deducted between the period of April 1, 2018 to March 31, 2019.</h4>
+                    <p>Please Note : Tax deductions from your Salary by your employer should be entered here. </p>
+                    <label for="taxDeductedThisYear">Investment for Section 80C </label>
+                    <input type="number" class="form-control"  [(ngModel)] = "taxDeductedThisYear" name="taxDeductedThisYear" required>
+                    <br>
+                   
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <label for="IncomeTdsDeduction">Section 80G : Donations to charitable organizations</label>
+                    <input type="number" class="form-control" [(ngModel)] = "IncomeTdsDeduction"  name="IncomeTdsDeduction" required><br>
+                    <p>The government requires itemized details of donations for Section 80G.</p>
+                  </div>
+    
+                  <button type="submit" (click) = "goBack()" class="btn btn-success margin-left-15px">Back</button> &nbsp;
+    
+                  <button type="submit" (click) = "saveTaxesPaid()" class="btn btn-success margin-left-15px">Save and Continue</button> &nbsp;
+                  <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+                  <button type="submit" (click) = "submit()" class="btn btn-success margin-left-15px">Submit</button>  
+    
+    
+                </form>
+              </div>
+    
+    
+              <div id="selfTaxPayments" class="tab-pane">
+                <h3>Section 80D: Deductions for Medical Insurance</h3>
+                <form>
+                  <div class="form-group">
+    
+                    <p>Deductions for Medical Insurance or Preventive Health Check-Up fees or Medical Expenditure incurred
+                      by you. </p>
+                    <label for="firstName">Medical Insurance Premium </label>
+                    <input type="text" class="form-control" id="name" required>
+    
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <h4>Section 80TTA: Deduction for Interest earned on Savings Bank Account</h4>
+                    <label for="firstName">Preventive Health Check-Up Fees</label>
+                    <input type="text" class="form-control" id="name" required>
+                    <br>
+                    <p>You do not need to enter a value for the 80TTA deduction here.
+                      ClearTax automatically picks it up from your declared interest income from Saving Bank account and
+                      Post office deposits..
+                    </p>
+                  </div>
+                  <hr />
+                  <div class="form-group">
+                    <label for="firstName">Section 80G : Donations to charitable organizations</label>
+                    <input type="text" class="form-control" id="name" required><br>
+                    <p>The government requires itemized details of donations for Section 80G.</p>
+                  </div>
+    
+                  <button type="submit" class="btn btn-success margin-left-15px">Save and Continue</button>
+                  <button type="submit" (click) = "saveEnteredData()" class="btn btn-success margin-left-15px">Save and Exit</button>
+
+    
+                </form>
+              </div>
+    
+    
+            
+    
+    
+            </div>
+          </div>
+          </div>
+
+
+
+
+
+        <!-- end taxes paid-->
+
+
+    </div>
+
+  </div>
+
+

@@ -1,0 +1,35 @@
+<div class="main row col-md-12 col-sm-12 col-xl-12">
+    <div class="fixed-header">
+        <div class="container">
+            <h2 class="itr-heading">File Your ITR</h2>
+            <h4 class="itr-heading-content">A Tricon Product</h4>
+        </div>
+    </div>
+  <div class="col-md-2 col-sm-2 col-xl-2"></div>
+  <div class="col-md-8 col-sm-8 col-xl-8 get-started-link" *ngIf="!isClicked">
+      
+      
+      
+      <div *ngIf="!isLoggedIn" class="login-button">
+        <h3>Please login to continue</h3>
+          <button class="loginBtn loginBtn--google" (click)="signIn('Google');">
+              Login with Google
+            </button>
+     </div>
+     
+  </div>
+  <div class="col-md-2 col-sm-2 col-xl-2">
+    <div *ngIf="isLoggedIn">
+      <h4 class="welcome-user" >Welcome {{ user.name }}
+        <span>
+          <img src="../assets/drop-down-arrow.png">
+        </span>
+      </h4>
+      <button *ngIf="isLoggedIn" (click)="signOut('Google');">Sign Out</button><br /><br />
+     
+    </div>
+  </div>
+  
+  <router-outlet></router-outlet>
+  
+</div>

@@ -1,0 +1,100 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            
+        </div>
+    </div>
+    <div class="row ">
+    
+       <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="col-md-2 col-lg-2 col-xl-2">
+            
+            </div>
+            <div class="col-md-8 col-lg-8 col-xl-8">
+                 <button type="button" (click)="findDetails()" class="btn btn-primary">Resume Filling Up the ITR Form</button>
+                
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2">
+            
+            </div>
+       </div>
+          
+    </div>
+    <div class="row ">
+    
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                 <div class="col-md-2 col-lg-2 col-xl-2">
+                 
+                 </div>
+                 <div class="col-md-8 col-lg-8 col-xl-8">
+                        <h3>
+                            Choose an option to continue e-filing the ITR
+                        </h3>
+                     
+                 </div>
+                 <div class="col-md-2 col-lg-2 col-xl-2">
+                 
+                 </div>
+            </div>
+               
+     </div>
+    <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+
+                    <div class="col-md-1 col-lg-1 col-xl-1"></div>
+
+                    <div class="col-md-5 col-lg-5 col-xl-5 file-upload">
+                        <label>Upload your form 16 here:</label>
+                        <input type="file" name="pdf" accept=".pdf" style="color:brown"> <br>  
+                        <button type="button"  class="btn btn-primary" (click)="submitForm16()"> Submit</button>
+                    </div>
+
+                    <div class="col-md-5 col-lg-5 col-xl-5 manual-enter">
+                        <label>No Form-16 PDF? Paper Form-16?</label><br>
+                        
+                        <div class="home">
+                            <button type="button" (click)="enterData()" class="btn btn-primary">Click here to manually enter the data</button>
+                        </div>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xl-1"></div>
+            </div>
+        <form>
+            <div class="col-md-6">
+               
+             
+        </div>
+            <br>
+
+            <div class="col-md-6">
+                    
+
+                </div>
+            </form>
+    </div>
+
+    <div class="users-list">
+            <table *ngIf=" allUsers && allUsers.length > 0" class="user-list">
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>PAN</th>
+                      <th>Action</th>
+                    </tr>
+                    <tr *ngFor="let user of allUsers">
+                      <td>{{user.personalInfo.firstName  || 'Not saved'}}</td>
+                      <td>{{user.personalInfo.lastName  || 'Not saved'}}</td>
+                      <td>{{user.personalInfo.PAN || 'Not saved'}}</td>
+                      <td><button type="button" class="resume-filling-btn btn btn-primary" (click)="resumeFilling(user._id)">Resume Filling</button>
+                        <span><button type="button" class="btn btn-danger delete-btn" (click)="removeData(user._id)">Delete</button></span>   
+                    </td>
+                    </tr>
+                    
+                  </table>
+
+        
+    </div>
+  
+
+</div>
